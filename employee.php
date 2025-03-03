@@ -1,3 +1,26 @@
+<?php
+include_once "db/connect.php";
+
+$employees = mysqli_query($conn, "SELECT * FROM employees");;
+
+if (isset($_POST['AddEmployee'])) {
+  $empName = $_POST['empName'];
+  $empRole = $_POST['empRole'];
+  $empPhone = $_POST['empPhone'];
+
+  // if (empty($empName) || empty($empRole) || empty($empPhone)) {
+  //   echo '<script>slert("All input fields are required!")</script>';
+  // }
+
+  $newEmployee = mysqli_query($conn, "INSERT INTO employees(employee_names,role,phone) VALUES('$empName', '$empRole', '$empPhone')");
+  if ($newEmployee) {
+    echo '<script>slert("New Employee Added!")</script>';
+  }
+}
+
+?>
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -44,41 +67,16 @@
             <th>EMPLOYEE PHONE</th>
             <th>EMPLOYEE ROLE</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>+250 781 123 456</td>
-            <td>Waiter</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Eleanor Vance</td>
-            <td>+250 782 987 654</td>
-            <td>Bartender</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Jasper Thorne</td>
-            <td>+250 783 555 121</td>
-            <td>Waiter</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Aria Sterling</td>
-            <td>+250 788 321 789</td>
-            <td>Bartender</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>Seraphina Hayes</td>
-            <td>+250 781 123 456</td>
-            <td>Waiter</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
+          <?php foreach ($employees as $row) {
+          ?>
+            <tr>
+              <td><?= $row['employee_id'] ?></td>
+              <td><?= $row['employee_names'] ?></td>
+              <td><?= $row['phone'] ?></td>
+              <td><?= ucfirst($row['role']) ?></td>
+              <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
+            </tr>
+          <?php } ?>
         </table>
       </div>
     </div>
