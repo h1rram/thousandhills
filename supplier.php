@@ -1,3 +1,25 @@
+<?php
+include_once "db/connect.php";
+
+$suppliers = mysqli_query($conn, "SELECT * FROM suppliers");;
+
+if (isset($_POST['AddSupplier'])) {
+  $supName = $_POST['supName'];
+  $supPhone = $_POST['supPhone'];
+  $payTerms = $_POST['payTerms'];
+
+  $newSupplier = mysqli_query($conn, "INSERT INTO suppliers(supplier_name, phone, payment_terms) VALUES('$supName', '$supPhone', '$payTerms')");
+  if ($newSupplier) {
+    echo '
+      <script>
+        alert("New Supplier Added!"); 
+        window.location.href = "supplier.php"
+      </script>
+    ';
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +56,7 @@
     <div class="side-content">
       <div class="sideheader-content">
         <span> Inventory -> Suppliers</span>
-        <button><img src="assests/icon/add.png" alt="">Add</button>
+        <button onclick="openModal()"><img src="assests/icon/add.png" alt="">Add</button>
       </div>
       <div class="table-container">
         <table class="data-container">
@@ -44,27 +66,15 @@
             <th>SUPPLIER PHONE</th>
             <th>PAYMENT TERMS</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Blarirwa Ltd</td>
-            <td>+250 781 123 456</td>
-            <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit...</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Mutzing ltd</td>
-            <td>+250 782 987 654</td>
-            <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit...</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>SKOL Ltd</td>
-            <td>+250 783 555 121</td>
-            <td>Lorem ipsum dolor sit amet consectetur, adipisicing elit...</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
+          <?php foreach ($suppliers as $row) { ?>
+            <tr>
+              <td><?= $row['supplier_id'] ?></td>
+              <td><?= $row['supplier_name'] ?></td>
+              <td><?= $row['phone'] ?></td>
+              <td><?= $row['payment_terms'] ?></td>
+              <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
+            </tr>
+          <?php } ?>
         </table>
       </div>
     </div>
@@ -74,18 +84,18 @@
       <h1>New Supplier</h1>
       <div class="field">
         <label>Supplier Name</label>
-        <input type="text" name="sup  Name">
+        <input type="text" name="supName">
       </div>
       <div class="field">
         <label>Supplier Phone</label>
-        <input type="tel" name="sup Phone">
+        <input type="tel" name="supPhone">
       </div>
       <div class="field">
         <label>Payment Terms</label>
         <textarea name="payTerms" rows="15"></textarea>
       </div>
       <div class="btns">
-        <a href="javascript:void(0)">Cancel</a>
+        <a onclick="closeModal()" href="javascript:void(0)">Cancel</a>
         <input type="submit" value="Add" name="AddSupplier">
       </div>
     </form>

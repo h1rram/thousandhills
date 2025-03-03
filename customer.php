@@ -1,3 +1,8 @@
+<?php
+include_once "db/connect.php";
+$customers = mysqli_query($conn, "SELECT * FROM customers");
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -43,30 +48,14 @@
             <th>CUSTOMER PHONE</th>
             <th>SPENDING DATE</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>John Doe</td>
-            <td>+250 781 123 456</td>
-            <td>1/3/2025</td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>John Doe</td>
-            <td>+250 781 123 456</td>
-            <td>1/3/2025</td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>John Doe</td>
-            <td>+250 781 123 456</td>
-            <td>1/3/2025</td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>John Doe</td>
-            <td>+250 781 123 456</td>
-            <td>1/3/2025</td>
-          </tr>
+          <?php foreach ($customers as $row) { ?>
+            <tr>
+              <td><?= $row['customer_id'] ?></td>
+              <td><?= $row['customer_name'] ?></td>
+              <td><?= $row['phone'] ?></td>
+              <td><?= $row['consuming_date'] ?></td>
+            </tr>
+          <?php } ?>
         </table>
       </div>
     </div>

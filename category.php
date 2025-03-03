@@ -1,3 +1,23 @@
+<?php
+include_once "db/connect.php";
+
+$categories = mysqli_query($conn, "SELECT * FROM categories");;
+
+if (isset($_POST['AddCategory'])) {
+  $cName = $_POST['cName'];
+
+  $newCategory = mysqli_query($conn, "INSERT INTO categories(category_name) VALUES('$cName')");
+  if ($newCategory) {
+    echo '
+      <script>
+        alert("New Category Added!"); 
+        window.location.href = "category.php"
+      </script>
+    ';
+  }
+}
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,7 +54,7 @@
     <div class="side-content">
       <div class="sideheader-content">
         <span>Products -> Categories</span>
-        <button><img src="assests/icon/add.png" alt="">Add</button>
+        <button onclick="openModal()"><img src="assests/icon/add.png" alt="">Add</button>
       </div>
       <div class="table-container">
         <table class="data-container">
@@ -43,21 +63,13 @@
             <th>CATEGORY NAME</th>
 
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Soft Drinks</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Energy Drinks</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Juice</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
+          <?php foreach ($categories as $row) { ?>
+            <tr>
+              <td><?= $row['category_id'] ?></td>
+              <td><?= $row['category_name'] ?></td>
+              <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
+            </tr>
+          <?php } ?>
         </table>
       </div>
     </div>
@@ -67,10 +79,10 @@
       <h1>New Category</h1>
       <div class="field">
         <label>Category Name</label>
-        <input type="text" name="empName">
+        <input type="text" name="cName">
       </div>
       <div class="btns">
-        <a href="javascript:void(0)">Cancel</a>
+        <a onclick="closeModal()" href="javascript:void(0)">Cancel</a>
         <input type="submit" value="Add" name="AddCategory">
       </div>
     </form>
