@@ -8,13 +8,14 @@ if (isset($_POST['AddEmployee'])) {
   $empRole = $_POST['empRole'];
   $empPhone = $_POST['empPhone'];
 
-  // if (empty($empName) || empty($empRole) || empty($empPhone)) {
-  //   echo '<script>slert("All input fields are required!")</script>';
-  // }
-
   $newEmployee = mysqli_query($conn, "INSERT INTO employees(employee_names,role,phone) VALUES('$empName', '$empRole', '$empPhone')");
   if ($newEmployee) {
-    echo '<script>slert("New Employee Added!")</script>';
+    echo '
+    <script>
+      alert("New Employee Added!"); 
+      window.location.href = "employee.php"
+    </script>
+  ';
   }
 }
 

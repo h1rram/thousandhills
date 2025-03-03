@@ -1,3 +1,25 @@
+<?php
+include_once "db/connect.php";
+
+$products = mysqli_query($conn, "SELECT * FROM products");;
+
+if (isset($_POST['AddProduct'])) {
+  $pName = $_POST['pName'];
+  $pCategoryId = $_POST['pCategoryId'];
+
+  $newProduct = mysqli_query($conn, "INSERT INTO products(product_name,category_id) VALUES('$pName', '$pCategoryId')");
+  if ($newProduct) {
+    echo '
+      <script>
+        alert("New Product Added!"); 
+        window.location.href = "product.php"
+      </script>
+    ';
+  }
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -36,7 +58,7 @@
         <span>Products</span>
         <div class="two-buttons">
           <a href="category.php"><button><img src="assests/icon/category.png" alt="">Category</button></a>
-          <button><img src="assests/icon/add.png" alt="">Add</button>
+          <button onclick="openModal()"><img src="assests/icon/add.png" alt="">Add</button>
         </div>
       </div>
       <div class="table-container">
@@ -46,24 +68,18 @@
             <th>CATEGORY</th>
             <th>PRODUCT NAME</th>
           </tr>
-          <tr>
-            <td>1</td>
-            <td>Soft Drinks</td>
-            <td>Coca Cola</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Energy Drinks</td>
-            <td>Turbo</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
-          <tr>
-            <td>3</td>
-            <td>Juice</td>
-            <td>Mukamira</td>
-            <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
-          </tr>
+          <?php foreach ($products as $row) {
+            $id = $row['category_id'];
+            $category = mysqli_fetch_assoc(mysqli_query($conn, "SELECT category_name FROM categories WHERE category_id = '$id'"));
+            $categoryName = $category['category_name']
+          ?>
+            <tr>
+              <td><?= $row['product_id'] ?></td>
+              <td><?= $categoryName ?></td>
+              <td><?= $row['product_name'] ?></td>
+              <td><button><img src="assests/icon/edit.png" alt="" class="edit-icon">Edit</button></td>
+            </tr>
+          <?php } ?>
         </table>
       </div>
     </div>
@@ -78,11 +94,16 @@
       <div class="field">
         <label>Product Category</label>
         <select name="pCategoryId">
-          <option selected value="1">Soft Drinks</option>
+          <?php
+          $categories = mysqli_query($conn, "SELECT category_id,category_name FROM categories");
+          foreach ($categories as $categoryRow) {
+          ?>
+            <option value="<?= $categoryRow['category_id'] ?>"><?= $categoryRow['category_name'] ?></option>
+          <?php } ?>
         </select>
       </div>
       <div class="btns">
-        <a href="javascript:void(0)">Cancel</a>
+        <a onclick="closeModal()" href="javascript:void(0)">Cancel</a>
         <input type="submit" value="Add" name="AddProduct">
       </div>
     </form>
