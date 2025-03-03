@@ -14,10 +14,12 @@ html {
     display: flex;
     flex-direction: column;
     margin: 8rem 28rem;
+    align-items: center;
+    justify-content: center;
 }
 
 .login-container {
-    width: auto;
+    width: 450px;
     height: auto;
     margin-bottom: 1rem;
     border: solid 1px #ccc;
@@ -260,9 +262,6 @@ td {
     background-color: #f8f4f4;
 }
 
-.showModalForm {
-    display: flex;
-}
 
 .modalForm {
     height: 100vh;
@@ -275,6 +274,11 @@ td {
     display: none;
     justify-content: end;
 }
+
+.showModalForm {
+    display: flex;
+}
+
 
 @keyframes slide-in {
     from {

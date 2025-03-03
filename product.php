@@ -87,6 +87,15 @@
       </div>
     </form>
   </div>
+  <script>
+    const modal = document.getElementById("NewProduct");
+    const openModal = () => {
+      modal.classList.add("showModalForm");
+    }
+    const closeModal = () => {
+      modal.classList.remove("showModalForm");
+    };
+  </script>
 </body>
 
 </html>

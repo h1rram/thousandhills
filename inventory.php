@@ -51,52 +51,12 @@
             <th>EXPIRING DATE</th>
           </tr>
           <tr>
-            <td>1</td>
-            <td>Blarirwa Ltd</td>
-            <td>Henessy</td>
-            <td>20</td>
-            <td>2000</td>
-            <td>4000</td>
-            <td>20/3/2025</td>
-            <td><button><img src="assests/icon/export.png" alt="" class="edit-icon">Export</button></td>
-          </tr>
-          <tr>
-            <td>2</td>
-            <td>Mutzing Ltd</td>
-            <td>Mutzing</td>
-            <td>20</td>
-            <td>2000</td>
-            <td>4000</td>
-            <td>20/3/2025</td>
-            <td><button><img src="assests/icon/export.png" alt="" class="edit-icon">Export</button></td>
-          </tr>
-          <tr>
             <td>3</td>
             <td>Blarirwa Ltd</td>
             <td>Fanta</td>
             <td>20</td>
             <td>2000</td>
             <td>800</td>
-            <td>20/3/2025</td>
-            <td><button><img src="assests/icon/export.png" alt="" class="edit-icon">Export</button></td>
-          </tr>
-          <tr>
-            <td>4</td>
-            <td>Blarirwa Ltd</td>
-            <td>PRIMUS</td>
-            <td>5</td>
-            <td>1000</td>
-            <td>2000</td>
-            <td>20/3/2025</td>
-            <td><button><img src="assests/icon/export.png" alt="" class="edit-icon">Export</button></td>
-          </tr>
-          <tr>
-            <td>5</td>
-            <td>SKOL Ltd</td>
-            <td>Panache</td>
-            <td>20</td>
-            <td>2000</td>
-            <td>700</td>
             <td>20/3/2025</td>
             <td><button><img src="assests/icon/export.png" alt="" class="edit-icon">Export</button></td>
           </tr>
@@ -152,6 +112,15 @@
       </div>
     </form>
   </div>
+  <script>
+    const modal = document.getElementById("NewStockin");
+    const openModal = () => {
+      modal.classList.add("showModalForm");
+    }
+    const closeModal = () => {
+      modal.classList.remove("showModalForm");
+    };
+  </script>
 </body>
 
 </html>

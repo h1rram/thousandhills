@@ -75,6 +75,15 @@
       </div>
     </form>
   </div>
+  <script>
+    const modal = document.getElementById("NewCategory");
+    const openModal = () => {
+      modal.classList.add("showModalForm");
+    }
+    const closeModal = () => {
+      modal.classList.remove("showModalForm");
+    };
+  </script>
 </body>
 
 </html>

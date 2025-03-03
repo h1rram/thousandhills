@@ -34,7 +34,7 @@
     <div class="side-content">
       <div class="sideheader-content">
         <span>Employees</span>
-        <button><img src="assests/icon/add.png" alt="">Add</button>
+        <button onclick="openModal()"><img src="assests/icon/add.png" alt="">Add</button>
       </div>
       <div class="table-container">
         <table class="data-container">
@@ -102,11 +102,20 @@
         <input type="tel" name="empPhone">
       </div>
       <div class="btns">
-        <a href="javascript:void(0)">Cancel</a>
+        <a onclick="closeModal()" href="javascript:void(0)">Cancel</a>
         <input type="submit" value="Add" name="AddEmployee">
       </div>
     </form>
   </div>
+  <script>
+    const modal = document.getElementById("NewEmployee");
+    const openModal = () => {
+      modal.classList.add("showModalForm");
+    }
+    const closeModal = () => {
+      modal.classList.remove("showModalForm");
+    };
+  </script>
 </body>
 
 </html>

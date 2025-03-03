@@ -148,10 +148,19 @@
       </div>
       <div class="btns">
         <a href="javascript:void(0)">Cancel</a>
-        <input type="submit" value="Save" name="AddStockin">
+        <input type="submit" value="Save" name="AddStockout">
       </div>
     </form>
   </div>
+  <script>
+    const modal = document.getElementById("NewOrder");
+    const openModal = () => {
+      modal.classList.add("showModalForm");
+    }
+    const closeModal = () => {
+      modal.classList.remove("showModalForm");
+    };
+  </script>
 </body>
 
 </html>

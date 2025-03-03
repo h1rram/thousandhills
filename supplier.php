@@ -86,10 +86,19 @@
       </div>
       <div class="btns">
         <a href="javascript:void(0)">Cancel</a>
-        <input type="submit" value="Add" name="AddEmployee">
+        <input type="submit" value="Add" name="AddSupplier">
       </div>
     </form>
   </div>
+  <script>
+    const modal = document.getElementById("NewSupplier");
+    const openModal = () => {
+      modal.classList.add("showModalForm");
+    }
+    const closeModal = () => {
+      modal.classList.remove("showModalForm");
+    };
+  </script>
 </body>
 
 </html>
